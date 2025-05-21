@@ -8,37 +8,20 @@ import {
 	InputLabel,
 	OutlinedInput,
 } from '@mui/material';
-import styled from '@emotion/styled';
-// import Visibility from 'material-ui/svg-icons/action/visibility';
-// import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-`;
-
-const Logo = styled.a`
-	margin-block: 45px;
-`;
-
-const ButtonGroup = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 300px;
-	> * {
-		margin-block: 10px;
-	}
-`;
-
-const BaristaButton = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+import {
+	Logo,
+	BaristaButton,
+	Container,
+	ButtonGroup
+} from './styled';
+import { SlideIn } from '../../components/animations/SlideIn';
+import { useNavigate } from 'react-router';
 
 export const Home = () => {
+	const navigate = useNavigate();
 	const [showPasswordField, setShowPasswordField] = useState(false);
+
 	return (
 		<Container>
 			<Logo href='https://vite.dev' target='_blank'>
@@ -49,12 +32,14 @@ export const Home = () => {
 					<Button
 						size='large'
 						variant='outlined'
+						data-testid='barista-button'
+						style={{ marginBlock: 10 }}
 						onClick={() => setShowPasswordField((current) => !current)}
 					>
 						Barista
 					</Button>
-					{showPasswordField && (
-						<FormControl variant='outlined'>
+					<SlideIn show={showPasswordField}>
+						<FormControl data-testid='password-field' size='small' fullWidth variant='outlined'>
 							<InputLabel htmlFor='outlined-adornment-password'>
 								Password
 							</InputLabel>
@@ -64,14 +49,8 @@ export const Home = () => {
 								endAdornment={
 									<InputAdornment position='end'>
 										<IconButton
-											// aria-label={
-											// 	showPassword
-											// 		? 'hide the password'
-											// 		: 'display the password'
-											// }
-											// onClick={handleClickShowPassword}
-											// onMouseDown={handleMouseDownPassword}
-											// onMouseUp={handleMouseUpPassword}
+											aria-label='enter barista password'
+											onClick={() => navigate('/orders')}
 											edge='end'
 										>
 											<ArrowForwardIcon />
@@ -81,9 +60,9 @@ export const Home = () => {
 								label='Password'
 							/>
 						</FormControl>
-					)}
+					</SlideIn>
 				</BaristaButton>
-				<Button size='large' variant='contained'>
+				<Button data-testid='customer-button' size='large' variant='contained' onClick={() => navigate('/order')}>
 					Customer
 				</Button>
 			</ButtonGroup>
