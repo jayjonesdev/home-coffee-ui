@@ -49,6 +49,7 @@ export const Home = () => {
 								endAdornment={
 									<InputAdornment position='end'>
 										<IconButton
+											data-testid='password-enter-button'
 											aria-label='enter barista password'
 											onClick={() => navigate('/orders')}
 											edge='end'
