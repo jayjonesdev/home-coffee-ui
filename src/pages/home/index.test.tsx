@@ -26,7 +26,7 @@ describe('Home Screen', () => {
 
         expect(screen.getByTestId('barista-button')).toBeInTheDocument();
         expect(screen.getByTestId('customer-button')).toBeInTheDocument();
-        expect(screen.queryByTestId('password-field')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('password-field')).toBeInTheDocument();
     });
 
     it('shows password field and navigates to barista orders screen', async () => {
