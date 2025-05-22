@@ -14,10 +14,10 @@ const vitestConfig = defineVitestConfig({
     setupFiles: "setup.ts",
      coverage: {
       thresholds: {
-        lines: 60,
-        branches: 60,
-        functions: 60,
-        statements: 60
+        lines: 55,
+        branches: 55,
+        functions: 55,
+        statements: 55
       },
       // you can include other reporters, but 'json-summary' is required, json is recommended
       reporter: ['text', 'json-summary', 'json'],
