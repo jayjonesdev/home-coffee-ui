@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { describe } from 'vitest';
-import { Order } from '.';
+import { CustomerOrder } from '.';
 
 describe('Customer Order', () => {
 	it('should render', () => {
-		render(<Order />);
+		render(<CustomerOrder />);
 
 		expect(screen.findByText('Order Screen')).toBeTruthy();
 	});
