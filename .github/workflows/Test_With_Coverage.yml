@@ -8,8 +8,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - branch: main
-            artifact: main
+          - branch: master
+            artifact: master
           - branch: ${{ github.head_ref }}
             artifact: pull-request
 
