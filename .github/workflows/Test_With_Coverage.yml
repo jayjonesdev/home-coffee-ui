@@ -44,10 +44,6 @@ jobs:
         with:
           name: coverage-pull-request
           path: coverage
-      - uses: actions/download-artifact@v4
-        with:
-          name: coverage-main
-          path: coverage-main
       - name: "Report Coverage"
         uses: davelosert/vitest-coverage-report-action@v2
         with:
