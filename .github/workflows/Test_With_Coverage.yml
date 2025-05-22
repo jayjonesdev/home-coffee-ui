@@ -3,11 +3,13 @@ on:
   pull_request:
 
 jobs:
-  unit_tests:
+  unit-tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
+          - branch: master
+            artifact: master
           - branch: ${{ github.head_ref }}
             artifact: pull-request
 
@@ -44,7 +46,11 @@ jobs:
         with:
           name: coverage-pull-request
           path: coverage
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage-master
+          path: coverage-master
       - name: "Report Coverage"
         uses: davelosert/vitest-coverage-report-action@v2
         with:
-          json-summary-compare-path: coverage-main/coverage-summary.json
+          json-summary-compare-path: coverage-master/coverage-summary.json
