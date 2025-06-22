@@ -1,5 +1,3 @@
-// import { TextField } from '@mui/material';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -9,10 +7,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Order } from '../steps/Order';
 import { Paper } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 const steps = ['Order', 'Review'];
 
 export const CustomerOrder = () => {
+	const navigate = useNavigate();
 	const [activeStep, setActiveStep] = React.useState(0);
 
 	const handleNext = () => {
@@ -20,6 +20,9 @@ export const CustomerOrder = () => {
 	};
 
 	const handleBack = () => {
+		if (activeStep === 0) {
+			navigate('/');
+		}
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
@@ -36,7 +39,6 @@ export const CustomerOrder = () => {
 				height: '90vh',
 				padding: 25,
 				width: '60vw',
-				backgroundColor: 'white',
 			}}
 		>
 			<Stepper activeStep={activeStep}>
@@ -66,12 +68,7 @@ export const CustomerOrder = () => {
 				<React.Fragment>
 					<Order />
 					<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-						<Button
-							color='inherit'
-							disabled={activeStep === 0}
-							onClick={handleBack}
-							sx={{ mr: 1 }}
-						>
+						<Button color='inherit' onClick={handleBack} sx={{ mr: 1 }}>
 							Back
 						</Button>
 						<Box sx={{ flex: '1 1 auto' }} />

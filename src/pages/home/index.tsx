@@ -7,9 +7,10 @@ import {
 	InputAdornment,
 	InputLabel,
 	OutlinedInput,
+	Paper,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Logo, BaristaButton, Container, ButtonGroup } from './styled';
+import { BaristaButton, ButtonGroup } from './styled';
 import { SlideIn } from '../../components/animations/SlideIn';
 import { useNavigate } from 'react-router';
 
@@ -18,7 +19,16 @@ export const Home = () => {
 	const [showPasswordField, setShowPasswordField] = useState(false);
 
 	return (
-		<Container>
+		<Paper
+			elevation={5}
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				height: 600,
+				width: 600,
+			}}
+		>
 			<img src={logo} style={{ width: 400, height: 400 }} alt='Coffee logo' />
 			<ButtonGroup>
 				<BaristaButton>
@@ -70,6 +80,6 @@ export const Home = () => {
 					Customer
 				</Button>
 			</ButtonGroup>
-		</Container>
+		</Paper>
 	);
 };
