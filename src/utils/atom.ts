@@ -5,6 +5,7 @@ const userOrderDefaultState: UserOrder = {
 	name: '',
 	drink: '',
 	options: {},
+	cart: [],
 };
 
 export const userOrder = atom(userOrderDefaultState);

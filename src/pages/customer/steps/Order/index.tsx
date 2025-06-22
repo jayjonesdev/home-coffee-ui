@@ -1,40 +1,69 @@
-import { useState } from 'react';
 import {
 	Button,
 	ButtonGroup,
 	FormControl,
 	FormControlLabel,
 	FormLabel,
+	IconButton,
+	Paper,
 	Radio,
 	RadioGroup,
 	TextField,
+	Typography,
 } from '@mui/material';
-import { Add } from '@mui/icons-material';
 import useDrinks from '../../../../utils/hooks/useDrinks';
 import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
 import { DrinkOption } from './DrinkOption';
-import { flattenDrinkOptions } from '../../../../utils/helper';
+import { flattenDrinkOptions, generateID } from '../../../../utils/helper';
+import {
+	customerDrinksStyle,
+	drinkOptionStyle,
+	fullPageStyle,
+	selectDrinkStyle,
+} from './styles';
+import { Delete } from '@mui/icons-material';
 
 export const Order = () => {
 	const drinks = useDrinks();
-	const [showMenu, setShowMenu] = useState(false);
 	const [order, setOrder] = useAtom(userOrder);
 
-	const addDrink = () => {
+	const isValidOrder =
+		order.drink.length > 0 &&
+		Object.values(order.options).reduce(
+			(acc, curr) => curr.length > 0 && acc,
+			true,
+		);
+
+	const convertDrink = () => {
+		const drinkOptions = Object.entries(order.options)
+			.map(([key, value]) => `${key}: ${value}`)
+			.join(', ');
+		return {
+			id: generateID(),
+			name: order.drink,
+			options: drinkOptions,
+		};
+	};
+
+	const addToCard = () => {
 		setOrder((prev) => ({
 			...prev,
-			drink: drinks[0].name,
-			options: flattenDrinkOptions(drinks[0].options),
+			drink: '',
+			options: {},
+			cart: [...prev.cart, convertDrink()],
 		}));
-		setShowMenu(true);
 	};
+
+	const deleteDrink = () => {};
 
 	const getDrinkOptions = (options: { [key: string]: string[] }) => {
 		return Object.entries(options).map(([key, options], index) => {
 			return (
-				<div key={index}>
-					<FormLabel id={`drink-option-label-${key}`}>{key}</FormLabel>
+				<div key={index} style={drinkOptionStyle}>
+					<FormLabel id={`drink-option-label-${key}`} style={{ width: '20%' }}>
+						{key}
+					</FormLabel>
 					<ButtonGroup>
 						{options.map((option) => (
 							<DrinkOption key={key} optionKey={key} name={option} />
@@ -46,46 +75,89 @@ export const Order = () => {
 	};
 
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				width: '50%',
-				height: '100%',
-				paddingBlock: 50,
-			}}
-		>
-			<TextField required id='order-name' label='Name' />
-			{!showMenu && (
-				<Button fullWidth startIcon={<Add />} onClick={addDrink}>
-					Add drink
-				</Button>
-			)}
-			{showMenu && (
-				<FormControl>
-					<RadioGroup name='drinks-radio-group' value={order.name}>
-						{drinks.map(({ name, options }) => {
-							return (
-								<div key={name}>
-									<FormControlLabel
-										value={name}
-										control={<Radio />}
-										label={name}
-										onClick={() =>
-											setOrder((prev) => ({
-												...prev,
-												name,
-												options: flattenDrinkOptions(options),
-											}))
-										}
-									/>
-									{name === order.name && getDrinkOptions(options)}
-								</div>
-							);
-						})}
-					</RadioGroup>
-				</FormControl>
-			)}
-		</div>
+		<>
+			<div style={{ paddingBlockStart: 30 }}>
+				<TextField required id='order-name' label='Name' fullWidth />
+			</div>
+			<div style={fullPageStyle}>
+				<div style={selectDrinkStyle}>
+					<div style={{ paddingBlockStart: 25 }}>
+						<Typography variant='h6' gutterBottom>
+							Select a drink
+						</Typography>
+						<FormControl>
+							<RadioGroup
+								name='drinks-radio-group'
+								value={order.drink}
+								style={{ paddingInlineStart: 25 }}
+							>
+								{drinks.map(({ name, options }) => {
+									return (
+										<div key={name}>
+											<FormControlLabel
+												value={name}
+												control={<Radio />}
+												label={
+													<Typography style={{ fontWeight: 'bold' }}>
+														{name}
+													</Typography>
+												}
+												onClick={() =>
+													setOrder((prev) => ({
+														...prev,
+														drink: name,
+														options: flattenDrinkOptions(options),
+													}))
+												}
+											/>
+											{name === order.drink && getDrinkOptions(options)}
+										</div>
+									);
+								})}
+							</RadioGroup>
+							<Button
+								style={{ marginBlockStart: 10 }}
+								variant='contained'
+								color='primary'
+								onClick={addToCard}
+								disabled={!isValidOrder}
+							>
+								Add to cart
+							</Button>
+						</FormControl>
+					</div>
+				</div>
+				<div style={customerDrinksStyle}>
+					{order.cart.length > 0 && (
+						<div style={{ paddingBlockStart: 20 }}>
+							<Typography variant='h6' gutterBottom>
+								Cart
+							</Typography>
+							{order.cart.map((drink, index) => (
+								<Paper
+									elevation={3}
+									key={index}
+									style={{
+										padding: 25,
+										marginBlockEnd: 20,
+										display: 'flex',
+										alignContent: 'baseline',
+										justifyContent: 'space-between',
+									}}
+								>
+									<div>
+										<Typography variant='h6'>{drink.name}</Typography>
+										<Typography fontStyle='bold'>{drink.options}</Typography>
+									</div>
+									<IconButton color='primary' onClick={deleteDrink}>
+										<Delete />
+									</IconButton>
+								</Paper>
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+		</>
 	);
 };
