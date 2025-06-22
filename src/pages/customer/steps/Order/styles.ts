@@ -1,3 +1,5 @@
+import theme from '../../../../theme';
+
 export const fullPageStyle: React.CSSProperties = {
 	display: 'flex',
 	width: '100%',
@@ -9,6 +11,7 @@ export const selectDrinkStyle: React.CSSProperties = {
 	flexDirection: 'column',
 	width: '50%',
 	height: '100%',
+	paddingBlockStart: 25,
 };
 
 export const customerDrinksStyle: React.CSSProperties = {
@@ -24,4 +27,14 @@ export const drinkOptionStyle: React.CSSProperties = {
 	alignItems: 'baseline',
 	marginBlockEnd: 10,
 	width: '100%',
+};
+
+export const userDrinkStyle: React.CSSProperties = {
+	padding: 25,
+	marginBlockEnd: 20,
+	display: 'flex',
+	alignContent: 'baseline',
+	justifyContent: 'space-between',
+	backgroundColor: theme.palette.primary.main,
+	color: 'white',
 };

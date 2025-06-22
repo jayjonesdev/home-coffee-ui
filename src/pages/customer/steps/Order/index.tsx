@@ -1,12 +1,6 @@
 import {
 	Button,
-	ButtonGroup,
 	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Paper,
-	Radio,
 	RadioGroup,
 	TextField,
 	Typography,
@@ -14,15 +8,10 @@ import {
 import useDrinks from '../../../../utils/hooks/useDrinks';
 import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
-import { DrinkOption } from './DrinkOption';
-import { flattenDrinkOptions, generateID } from '../../../../utils/helper';
-import {
-	customerDrinksStyle,
-	drinkOptionStyle,
-	fullPageStyle,
-	selectDrinkStyle,
-} from './styles';
-import { Delete } from '@mui/icons-material';
+import { generateID } from '../../../../utils/helper';
+import { customerDrinksStyle, fullPageStyle, selectDrinkStyle } from './styles';
+import { UserDrink } from './UserDrink';
+import { MenuDrink } from './MenuDrink';
 
 export const Order = () => {
 	const drinks = useDrinks();
@@ -55,25 +44,6 @@ export const Order = () => {
 		}));
 	};
 
-	const deleteDrink = () => {};
-
-	const getDrinkOptions = (options: { [key: string]: string[] }) => {
-		return Object.entries(options).map(([key, options], index) => {
-			return (
-				<div key={index} style={drinkOptionStyle}>
-					<FormLabel id={`drink-option-label-${key}`} style={{ width: '20%' }}>
-						{key}
-					</FormLabel>
-					<ButtonGroup>
-						{options.map((option) => (
-							<DrinkOption key={key} optionKey={key} name={option} />
-						))}
-					</ButtonGroup>
-				</div>
-			);
-		});
-	};
-
 	return (
 		<>
 			<div style={{ paddingBlockStart: 30 }}>
@@ -81,51 +51,29 @@ export const Order = () => {
 			</div>
 			<div style={fullPageStyle}>
 				<div style={selectDrinkStyle}>
-					<div style={{ paddingBlockStart: 25 }}>
-						<Typography variant='h6' gutterBottom>
-							Select a drink
-						</Typography>
-						<FormControl>
-							<RadioGroup
-								name='drinks-radio-group'
-								value={order.drink}
-								style={{ paddingInlineStart: 25 }}
-							>
-								{drinks.map(({ name, options }) => {
-									return (
-										<div key={name}>
-											<FormControlLabel
-												value={name}
-												control={<Radio />}
-												label={
-													<Typography style={{ fontWeight: 'bold' }}>
-														{name}
-													</Typography>
-												}
-												onClick={() =>
-													setOrder((prev) => ({
-														...prev,
-														drink: name,
-														options: flattenDrinkOptions(options),
-													}))
-												}
-											/>
-											{name === order.drink && getDrinkOptions(options)}
-										</div>
-									);
-								})}
-							</RadioGroup>
-							<Button
-								style={{ marginBlockStart: 10 }}
-								variant='contained'
-								color='primary'
-								onClick={addToCard}
-								disabled={!isValidOrder}
-							>
-								Add to cart
-							</Button>
-						</FormControl>
-					</div>
+					<Typography variant='h6' gutterBottom>
+						Select a drink
+					</Typography>
+					<FormControl>
+						<RadioGroup
+							name='drinks-radio-group'
+							value={order.drink}
+							style={{ paddingInlineStart: 25 }}
+						>
+							{drinks.map(({ name, options }) => (
+								<MenuDrink name={name} options={options} />
+							))}
+						</RadioGroup>
+						<Button
+							style={{ marginBlockStart: 10, width: '30%' }}
+							variant='contained'
+							color='primary'
+							onClick={addToCard}
+							disabled={!isValidOrder}
+						>
+							Add to cart
+						</Button>
+					</FormControl>
 				</div>
 				<div style={customerDrinksStyle}>
 					{order.cart.length > 0 && (
@@ -133,27 +81,11 @@ export const Order = () => {
 							<Typography variant='h6' gutterBottom>
 								Cart
 							</Typography>
-							{order.cart.map((drink, index) => (
-								<Paper
-									elevation={3}
-									key={index}
-									style={{
-										padding: 25,
-										marginBlockEnd: 20,
-										display: 'flex',
-										alignContent: 'baseline',
-										justifyContent: 'space-between',
-									}}
-								>
-									<div>
-										<Typography variant='h6'>{drink.name}</Typography>
-										<Typography fontStyle='bold'>{drink.options}</Typography>
-									</div>
-									<IconButton color='primary' onClick={deleteDrink}>
-										<Delete />
-									</IconButton>
-								</Paper>
-							))}
+							<div style={{ overflowY: 'auto' }}>
+								{order.cart.map((drink, index) => (
+									<UserDrink drink={drink} key={index} />
+								))}
+							</div>
 						</div>
 					)}
 				</div>

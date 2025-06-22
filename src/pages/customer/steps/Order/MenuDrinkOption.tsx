@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
 
-export const DrinkOption = ({
+export const MenuDrinkOption = ({
 	optionKey,
 	name,
 }: {

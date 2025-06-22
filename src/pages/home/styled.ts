@@ -5,10 +5,8 @@ export const Container = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-content: center;
-`;
-
-export const Logo = styled.a`
-	margin-block: 45px;
+	align-items: center;
+	background-color: white;
 `;
 
 export const ButtonGroup = styled.div`

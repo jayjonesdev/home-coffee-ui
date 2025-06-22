@@ -1,4 +1,4 @@
-type Drink = {
+export type Drink = {
 	id: string;
 	name: string;
 	options: string;

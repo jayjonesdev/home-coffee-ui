@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import viteLogo from '/vite.svg';
+import logo from '/logo.png';
 import {
 	Button,
 	FormControl,
@@ -9,12 +9,7 @@ import {
 	OutlinedInput,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {
-	Logo,
-	BaristaButton,
-	Container,
-	ButtonGroup
-} from './styled';
+import { Logo, BaristaButton, Container, ButtonGroup } from './styled';
 import { SlideIn } from '../../components/animations/SlideIn';
 import { useNavigate } from 'react-router';
 
@@ -24,9 +19,7 @@ export const Home = () => {
 
 	return (
 		<Container>
-			<Logo href='https://vite.dev' target='_blank'>
-				<img src={viteLogo} className='logo' alt='Vite logo' />
-			</Logo>
+			<img src={logo} style={{ width: 400, height: 400 }} alt='Coffee logo' />
 			<ButtonGroup>
 				<BaristaButton>
 					<Button
@@ -39,7 +32,12 @@ export const Home = () => {
 						Barista
 					</Button>
 					<SlideIn show={showPasswordField}>
-						<FormControl data-testid='password-field' size='small' fullWidth variant='outlined'>
+						<FormControl
+							data-testid='password-field'
+							size='small'
+							fullWidth
+							variant='outlined'
+						>
 							<InputLabel htmlFor='outlined-adornment-password'>
 								Password
 							</InputLabel>
@@ -63,7 +61,12 @@ export const Home = () => {
 						</FormControl>
 					</SlideIn>
 				</BaristaButton>
-				<Button data-testid='customer-button' size='large' variant='contained' onClick={() => navigate('/order')}>
+				<Button
+					data-testid='customer-button'
+					size='large'
+					variant='contained'
+					onClick={() => navigate('/order')}
+				>
 					Customer
 				</Button>
 			</ButtonGroup>
