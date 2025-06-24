@@ -8,7 +8,7 @@ import {
 import useDrinks from '../../../../utils/hooks/useDrinks';
 import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
-import { generateID } from '../../../../utils/helper';
+import { drinkOptionsToString, generateID } from '../../../../utils/helper';
 import {
 	customerDrinksStyle,
 	fullPageStyle,
@@ -29,9 +29,8 @@ export const Order = () => {
 		);
 
 	const convertDrink = () => {
-		const drinkOptions = Object.entries(order.options)
-			.map(([key, value]) => `${key}: ${value}`)
-			.join(', ');
+		const drinkOptions = drinkOptionsToString(order.options);
+
 		return {
 			id: generateID(),
 			name: order.drink,

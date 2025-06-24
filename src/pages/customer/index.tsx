@@ -17,11 +17,10 @@ export const Customer = () => {
 	const steps = useSteps();
 	const [order] = useAtom(userOrder);
 	const [activeStep, setActiveStep] = React.useState(0);
-	console.log(order.name, order.cart);
-	const isStepOneValid = order.name.length > 0 && order.cart.length > 0;
 
+	const isStepOneValid = order.name.length > 0 && order.cart.length > 0;
 	const isStepValid = activeStep === 0 ? isStepOneValid : true;
-	console.log(isStepOneValid, isStepValid);
+
 	const handleNext = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
