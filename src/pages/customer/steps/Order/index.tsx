@@ -9,7 +9,11 @@ import useDrinks from '../../../../utils/hooks/useDrinks';
 import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
 import { generateID } from '../../../../utils/helper';
-import { customerDrinksStyle, fullPageStyle, selectDrinkStyle } from './styles';
+import {
+	customerDrinksStyle,
+	fullPageStyle,
+	selectDrinkStyle,
+} from '../../styles';
 import { UserDrink } from './UserDrink';
 import { MenuDrink } from './MenuDrink';
 
@@ -47,7 +51,16 @@ export const Order = () => {
 	return (
 		<>
 			<div style={{ paddingBlockStart: 30 }}>
-				<TextField required id='order-name' label='Name' fullWidth />
+				<TextField
+					required
+					id='order-name'
+					label='Name'
+					fullWidth
+					value={order.name}
+					onChange={(value) =>
+						setOrder((prev) => ({ ...prev, name: value.target.value }))
+					}
+				/>
 			</div>
 			<div style={fullPageStyle}>
 				<div style={selectDrinkStyle}>
@@ -82,8 +95,8 @@ export const Order = () => {
 								Cart
 							</Typography>
 							<div style={{ overflowY: 'auto' }}>
-								{order.cart.map((drink, index) => (
-									<UserDrink drink={drink} key={index} />
+								{order.cart.map((drink) => (
+									<UserDrink drink={drink} />
 								))}
 							</div>
 						</div>

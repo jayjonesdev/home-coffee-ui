@@ -9,7 +9,7 @@ import { flattenDrinkOptions } from '../../../../utils/helper';
 import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
 import { MenuDrinkOption } from './MenuDrinkOption';
-import { drinkOptionStyle } from './styles';
+import { drinkOptionStyle } from '../../styles';
 
 export const MenuDrink = ({
 	name,

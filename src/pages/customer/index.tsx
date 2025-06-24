@@ -5,16 +5,23 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Order } from '../steps/Order';
 import { Paper } from '@mui/material';
 import { useNavigate } from 'react-router';
+import useSteps from '../../utils/hooks/useSteps';
+import { stepContainerStyle } from './styles';
+import { useAtom } from 'jotai';
+import { userOrder } from '../../utils/atom';
 
-const steps = ['Order', 'Review'];
-
-export const CustomerOrder = () => {
+export const Customer = () => {
 	const navigate = useNavigate();
+	const steps = useSteps();
+	const [order] = useAtom(userOrder);
 	const [activeStep, setActiveStep] = React.useState(0);
+	console.log(order.name, order.cart);
+	const isStepOneValid = order.name.length > 0 && order.cart.length > 0;
 
+	const isStepValid = activeStep === 0 ? isStepOneValid : true;
+	console.log(isStepOneValid, isStepValid);
 	const handleNext = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
@@ -31,31 +38,23 @@ export const CustomerOrder = () => {
 	};
 
 	return (
-		<Paper
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'space-between',
-				height: '90vh',
-				padding: 25,
-				width: '60vw',
-			}}
-		>
+		<Paper style={stepContainerStyle}>
 			<Stepper activeStep={activeStep}>
-				{steps.map((label) => {
+				{steps.map(({ name }) => {
 					const stepProps: { completed?: boolean } = {};
 					const labelProps: {
 						optional?: React.ReactNode;
 					} = {};
 					return (
-						<Step key={label} {...stepProps}>
-							<StepLabel {...labelProps}>{label}</StepLabel>
+						<Step key={name} {...stepProps}>
+							<StepLabel {...labelProps}>{name}</StepLabel>
 						</Step>
 					);
 				})}
 			</Stepper>
 			{activeStep === steps.length ? (
-				<React.Fragment>
+				// Add thank you screen
+				<>
 					<Typography sx={{ mt: 2, mb: 1 }}>
 						All steps completed - you&apos;re finished
 					</Typography>
@@ -63,20 +62,27 @@ export const CustomerOrder = () => {
 						<Box sx={{ flex: '1 1 auto' }} />
 						<Button onClick={handleReset}>Reset</Button>
 					</Box>
-				</React.Fragment>
+				</>
 			) : (
-				<React.Fragment>
-					<Order />
+				<>
+					{steps[activeStep].component}
 					<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
 						<Button color='inherit' onClick={handleBack} sx={{ mr: 1 }}>
 							Back
 						</Button>
 						<Box sx={{ flex: '1 1 auto' }} />
-						<Button onClick={handleNext}>
+						<Button
+							onClick={handleNext}
+							disabled={!isStepValid}
+							style={{
+								cursor: isStepValid ? 'pointer' : 'not-allowed',
+								pointerEvents: 'auto',
+							}}
+						>
 							{activeStep === steps.length - 1 ? 'Submit' : 'Next'}
 						</Button>
 					</Box>
-				</React.Fragment>
+				</>
 			)}
 		</Paper>
 	);

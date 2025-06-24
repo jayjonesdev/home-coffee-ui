@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { Home } from './pages/home';
-import { CustomerOrder } from './pages/customer/order';
+import { Customer } from './pages/customer';
 import { Orders } from './pages/barista/orders';
 
 export const router = createBrowserRouter([
@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/order',
-		element: <CustomerOrder />,
+		element: <Customer />,
 	},
 	{
 		path: '/orders',

@@ -1,4 +1,4 @@
-import theme from '../../../../theme';
+import theme from '../../theme';
 
 export const fullPageStyle: React.CSSProperties = {
 	display: 'flex',
@@ -37,4 +37,13 @@ export const userDrinkStyle: React.CSSProperties = {
 	justifyContent: 'space-between',
 	backgroundColor: theme.palette.primary.main,
 	color: 'white',
+};
+
+export const stepContainerStyle: React.CSSProperties = {
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-between',
+	height: '90vh',
+	padding: 25,
+	width: '60vw',
 };
