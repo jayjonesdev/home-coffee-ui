@@ -13,6 +13,7 @@ export const MenuDrinkOption = ({
 
 	return (
 		<Button
+			data-testid={`${name}-menu-drink-option`}
 			variant={order.options[optionKey] === name ? 'contained' : 'outlined'}
 			onClick={() => {
 				setOrder((prev) => ({

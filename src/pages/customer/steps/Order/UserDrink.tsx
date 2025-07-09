@@ -14,14 +14,20 @@ export const UserDrink = ({ drink }: { drink: Drink }) => {
 			cart: order.cart.filter((drink) => drink.id !== id),
 		}));
 	};
-
+	console.log(order.cart);
 	return (
-		<Paper elevation={5} key={drink.id} style={userDrinkStyle}>
+		<Paper
+			elevation={5}
+			key={drink.id}
+			style={userDrinkStyle}
+			data-testid={`user-drink-${drink.id}`}
+		>
 			<div>
 				<Typography variant='h6'>{drink.name}</Typography>
 				<Typography fontStyle='bold'>{drink.options}</Typography>
 			</div>
 			<IconButton
+				data-testid={`user-drink-${drink.id}-delete`}
 				style={{ color: 'white' }}
 				onClick={() => deleteDrink(drink.id)}
 			>
