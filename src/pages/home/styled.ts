@@ -1,16 +1,5 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-`;
-
-export const Logo = styled.a`
-	margin-block: 45px;
-`;
-
 export const ButtonGroup = styled.div`
 	display: flex;
 	flex-direction: column;
