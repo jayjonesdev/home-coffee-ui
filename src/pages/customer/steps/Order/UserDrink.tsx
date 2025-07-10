@@ -14,7 +14,7 @@ export const UserDrink = ({ drink }: { drink: Drink }) => {
 			cart: order.cart.filter((drink) => drink.id !== id),
 		}));
 	};
-	console.log(order.cart);
+
 	return (
 		<Paper
 			elevation={5}

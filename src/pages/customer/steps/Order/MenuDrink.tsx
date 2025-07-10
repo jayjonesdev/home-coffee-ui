@@ -24,7 +24,11 @@ export const MenuDrink = ({
 		return Object.entries(options).map(([key, options], index) => {
 			return (
 				<div key={index} style={drinkOptionStyle}>
-					<FormLabel id={`drink-option-label-${key}`} style={{ width: '20%' }}>
+					<FormLabel
+						data-testid={`drink-option-label-${key}`}
+						id={`drink-option-label-${key}`}
+						style={{ width: '20%' }}
+					>
 						{key}
 					</FormLabel>
 					<ButtonGroup>
@@ -40,6 +44,7 @@ export const MenuDrink = ({
 	return (
 		<div key={name}>
 			<FormControlLabel
+				data-testid={`menu-drink-${name}`}
 				value={name}
 				control={<Radio />}
 				label={<Typography style={{ fontWeight: 'bold' }}>{name}</Typography>}
