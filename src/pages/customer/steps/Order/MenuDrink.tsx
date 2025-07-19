@@ -31,7 +31,7 @@ export const MenuDrink = ({
 					>
 						{key}
 					</FormLabel>
-					<ButtonGroup>
+					<ButtonGroup style={{ flexWrap: 'wrap' }}>
 						{options.map((option) => (
 							<MenuDrinkOption key={key} optionKey={key} name={option} />
 						))}

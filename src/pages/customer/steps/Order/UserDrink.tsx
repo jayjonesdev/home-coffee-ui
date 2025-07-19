@@ -5,7 +5,13 @@ import { useAtom } from 'jotai';
 import { userOrder } from '../../../../utils/atom';
 import { userDrinkStyle } from '../../styles';
 
-export const UserDrink = ({ drink }: { drink: Drink }) => {
+export const UserDrink = ({
+	drink,
+	readOnly = false,
+}: {
+	drink: Drink;
+	readOnly?: boolean;
+}) => {
 	const [order, setOrder] = useAtom(userOrder);
 
 	const deleteDrink = (id: string) => {
@@ -26,13 +32,15 @@ export const UserDrink = ({ drink }: { drink: Drink }) => {
 				<Typography variant='h6'>{drink.name}</Typography>
 				<Typography fontStyle='bold'>{drink.options}</Typography>
 			</div>
-			<IconButton
-				data-testid={`user-drink-${drink.id}-delete`}
-				style={{ color: 'white' }}
-				onClick={() => deleteDrink(drink.id)}
-			>
-				<Delete />
-			</IconButton>
+			{!readOnly && (
+				<IconButton
+					data-testid={`user-drink-${drink.id}-delete`}
+					style={{ color: 'white' }}
+					onClick={() => deleteDrink(drink.id)}
+				>
+					<Delete />
+				</IconButton>
+			)}
 		</Paper>
 	);
 };

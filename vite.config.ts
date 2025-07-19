@@ -5,6 +5,9 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 const viteConfig = defineViteConfig({
 	plugins: [react()],
+	server: {
+		host: true,
+	},
 });
 
 const vitestConfig = defineVitestConfig({

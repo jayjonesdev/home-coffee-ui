@@ -8,8 +8,16 @@ export const useDrinks = (): Drink[] => {
 		{
 			name: 'Latte',
 			options: {
-				Milk: ['Oat', 'Whole'],
-				Flavor: ['None', 'Vanilla', 'Cardomom', 'Pistachio'],
+				Milk: ['Oat', 'Whole', 'Almond'],
+				Flavor: [
+					'None',
+					'Vanilla',
+					'Cardomom',
+					'Pistachio',
+					'Caramel',
+					'Hazelnut',
+					'Cane Sugar',
+				],
 				Temperature: ['Hot', 'Iced'],
 			},
 		},
@@ -22,7 +30,20 @@ export const useDrinks = (): Drink[] => {
 		{
 			name: 'Pour Over',
 			options: {
-				Type: ['Ethopia', 'Kenya'],
+				Type: ['Ethopia', 'Kenya', 'China'],
+			},
+		},
+		{
+			name: 'Thai Tea',
+			options: {
+				Temperature: ['Hot', 'Iced'],
+			},
+		},
+		{
+			name: 'Tea',
+			options: {
+				Type: ['Green Tea', 'Black Tea'],
+				Temperature: ['Hot', 'Iced'],
 			},
 		},
 	];

@@ -12,6 +12,7 @@ export const selectDrinkStyle: React.CSSProperties = {
 	width: '50%',
 	height: '100%',
 	paddingBlockStart: 25,
+	paddingInlineEnd: 75,
 };
 
 export const customerDrinksStyle: React.CSSProperties = {
@@ -45,5 +46,5 @@ export const stepContainerStyle: React.CSSProperties = {
 	justifyContent: 'space-between',
 	height: '90vh',
 	padding: 25,
-	width: '60vw',
+	width: '90vw',
 };

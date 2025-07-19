@@ -1,4 +1,5 @@
 import { Order } from '../../pages/customer/steps/Order';
+import { Review } from '../../pages/customer/steps/Review';
 
 export const useSteps = (): {
 	name: string;
@@ -11,7 +12,7 @@ export const useSteps = (): {
 		},
 		{
 			name: 'Review',
-			component: <div />,
+			component: <Review />,
 		},
 	];
 };

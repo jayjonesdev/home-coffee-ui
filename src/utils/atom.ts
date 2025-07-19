@@ -1,5 +1,5 @@
-import { atom } from 'jotai';
 import type { UserOrder } from './types';
+import { atomWithReset } from 'jotai/utils';
 
 const userOrderDefaultState: UserOrder = {
 	name: '',
@@ -8,4 +8,4 @@ const userOrderDefaultState: UserOrder = {
 	cart: [],
 };
 
-export const userOrder = atom(userOrderDefaultState);
+export const userOrder = atomWithReset(userOrderDefaultState);

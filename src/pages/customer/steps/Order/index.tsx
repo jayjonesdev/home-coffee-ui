@@ -93,7 +93,7 @@ export const Order = () => {
 							<Typography variant='h6' gutterBottom>
 								Cart
 							</Typography>
-							<div style={{ overflowY: 'auto' }}>
+							<div style={{ overflowY: 'auto', maxHeight: 500 }}>
 								{order.cart.map((drink) => (
 									<UserDrink drink={drink} />
 								))}
